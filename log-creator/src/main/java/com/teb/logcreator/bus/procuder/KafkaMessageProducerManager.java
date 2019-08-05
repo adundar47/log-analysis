@@ -16,34 +16,34 @@ import com.teb.logcreator.model.Log;
 @Service
 public class KafkaMessageProducerManager implements MessageProducerService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(KafkaMessageProducerManager.class);
+    private static final Logger           LOG = LoggerFactory.getLogger(KafkaMessageProducerManager.class);
 
-	@Value("${kafka.topic.createLog}")
-	private String createLogTopic;
+    @Value("${kafka.topic.createLog}")
+    private String                        createLogTopic;
 
-	@Autowired
-	private KafkaTemplate<String, Object> kafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, Object> kafkaTemplate;
 
-	@Async
-	@Override
-	public void sendCreateLogEvent(Log log) {
-		LOG.debug("[sendCreateLogEvent] Log object is sending.. -> {}", log);
+    @Async
+    @Override
+    public void sendCreateLogEvent(Log log) {
+        LOG.debug("[sendCreateLogEvent] Log object is sending.. -> {}", log);
 
-		ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(createLogTopic, log);
-		future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(createLogTopic, log);
+        future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
 
-			@Override
-			public void onSuccess(SendResult<String, Object> result) {
-				LOG.debug("[sendCreateLogEvent] sent message='{}' with offset={}", log,
-						result.getRecordMetadata().offset());
-			}
+            @Override
+            public void onSuccess(SendResult<String, Object> result) {
+                LOG.debug("[sendCreateLogEvent] sent message='{}' with offset={}", log,
+                        result.getRecordMetadata().offset());
+            }
 
-			@Override
-			public void onFailure(Throwable ex) {
-				LOG.error("[sendCreateLogEvent] unable to send message='{}'", log, ex);
-			}
+            @Override
+            public void onFailure(Throwable ex) {
+                LOG.error("[sendCreateLogEvent] unable to send message='{}'", log, ex);
+            }
 
-		});
+        });
 
-	}
+    }
 }

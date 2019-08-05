@@ -1,14 +1,22 @@
-package com.teb.logcreator.model;
+package com.teb.centralserver.model;
 
-public class Log {
+import java.io.Serializable;
 
-    private String   timeStamp;
+public class Log implements Serializable {
 
-    private LogType  logLevel;
+    private static final long serialVersionUID = -7984236673438504502L;
 
-    private CityName cityName;
+    private String            timeStamp;
 
-    private String   logDetail;
+    private LogType           logLevel;
+
+    private CityName          cityName;
+
+    private String            logDetail;
+
+    public Log() {
+        super();
+    }
 
     public Log(String timeStamp, LogType logLevel, CityName cityName, String logDetail) {
         super();

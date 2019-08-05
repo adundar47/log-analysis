@@ -1,4 +1,4 @@
-package com.teb.logcreator.model;
+package com.teb.centralserver.model;
 
 public enum LogType {
     INFO("INFO"), WARN("WARN"), FATAL("FATAL"), DEBUG("DEBUG"), ERROR("ERROR");

@@ -16,20 +16,18 @@ import com.teb.logcreator.utils.Utils;
 @Service
 public class LogCreatorService {
 
-	@Autowired
-	MessageProducerService messageProducerService;
+    @Autowired
+    MessageProducerService messageProducerService;
 
-	@Scheduled(fixedDelay = 5000, initialDelay = 5000)
-	public void sendLog() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		Date now = new Date();
-		String strDate = sdf.format(now);
+    @Scheduled(fixedDelay = 5000, initialDelay = 5000)
+    public void sendLog() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date now = new Date();
+        String strDate = sdf.format(now);
 
-		CityName cityName = CityName.getRandomCityName();
-		Log log = new Log(strDate, LogType.getRandomLogType(), cityName, Utils.getDetail(cityName.name()));
+        CityName cityName = CityName.getRandomCityName();
+        Log log = new Log(strDate, LogType.getRandomLogType(), cityName, Utils.getDetail(cityName.name()));
 
-		messageProducerService.sendCreateLogEvent(log);
-
-		System.out.println(log);
-	}
+        messageProducerService.sendCreateLogEvent(log);
+    }
 }

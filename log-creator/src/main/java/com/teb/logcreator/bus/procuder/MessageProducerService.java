@@ -4,6 +4,6 @@ import com.teb.logcreator.model.Log;
 
 public interface MessageProducerService {
 
-	void sendCreateLogEvent(Log log);
+    void sendCreateLogEvent(Log log);
 
 }

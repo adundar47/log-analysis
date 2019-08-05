@@ -1,11 +1,11 @@
-package com.teb.logcreator.model;
+package com.teb.centralserver.model;
 
-public enum LogType {
-    INFO("INFO"), WARN("WARN"), FATAL("FATAL"), DEBUG("DEBUG"), ERROR("ERROR");
+public enum CityName {
+    ISTANBUL("ISTANBUL"), TOKYO("TOKYO"), MOSKOW("MOSKOW"), BEIJING("BEIJING"), LONDON("LONDON");
 
     private final String type;
 
-    private LogType(final String type) {
+    private CityName(final String type) {
         this.type = type;
     }
 
@@ -14,9 +14,9 @@ public enum LogType {
         return type;
     }
 
-    public static LogType fromString(String text) {
+    public static CityName fromString(String text) {
         if (text != null) {
-            for (LogType eventType : LogType.values()) {
+            for (CityName eventType : CityName.values()) {
                 if (text.equals(eventType.type)) {
                     return eventType;
                 }
@@ -25,7 +25,7 @@ public enum LogType {
         return null;
     }
 
-    public static LogType getRandomLogType() {
+    public static CityName getRandomCityName() {
         return values()[(int) (Math.random() * values().length)];
     }
 }

@@ -12,8 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableKafka
 public class LogCreatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LogCreatorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LogCreatorApplication.class, args);
+    }
 
 }
