@@ -3,9 +3,6 @@ spring:
     name: central-server
   kafka:
       bootstrap-servers: 172.16.47.47:9092
-      producer:
-          key-serializer: org.apache.kafka.common.serialization.StringSerializer
-          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       consumer:
           group-id: central-server
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

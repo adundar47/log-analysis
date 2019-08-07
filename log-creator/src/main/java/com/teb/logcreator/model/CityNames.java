@@ -1,11 +1,11 @@
 package com.teb.logcreator.model;
 
-public enum CityName {
+public enum CityNames {
     ISTANBUL("ISTANBUL"), TOKYO("TOKYO"), MOSKOW("MOSKOW"), BEIJING("BEIJING"), LONDON("LONDON");
 
     private final String type;
 
-    private CityName(final String type) {
+    private CityNames(final String type) {
         this.type = type;
     }
 
@@ -14,9 +14,9 @@ public enum CityName {
         return type;
     }
 
-    public static CityName fromString(String text) {
+    public static CityNames fromString(String text) {
         if (text != null) {
-            for (CityName eventType : CityName.values()) {
+            for (CityNames eventType : CityNames.values()) {
                 if (text.equals(eventType.type)) {
                     return eventType;
                 }
@@ -25,7 +25,7 @@ public enum CityName {
         return null;
     }
 
-    public static CityName getRandomCityName() {
+    public static CityNames getRandomCityName() {
         return values()[(int) (Math.random() * values().length)];
     }
 }

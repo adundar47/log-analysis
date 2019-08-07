@@ -10,14 +10,14 @@ import com.teb.loghandler.repository.LogRepository;
 @Service
 public class LogHandlerService {
 
-    @Autowired
-    LogRepository         logRepository;
+	@Autowired
+	LogRepository logRepository;
 
-    @Autowired
-    SimpMessagingTemplate simpMessagingTemplate;
+	@Autowired
+	SimpMessagingTemplate simpMessagingTemplate;
 
-    public void logHandler(Log log) {
-        logRepository.save(log);
-        simpMessagingTemplate.convertAndSend(log);
-    }
+	public void logHandler(Log log) {
+		logRepository.save(log);
+		simpMessagingTemplate.convertAndSend(log);
+	}
 }

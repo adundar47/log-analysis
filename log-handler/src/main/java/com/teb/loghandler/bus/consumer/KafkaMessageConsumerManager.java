@@ -14,17 +14,17 @@ import com.teb.loghandler.service.LogHandlerService;
 @Service
 public class KafkaMessageConsumerManager implements MessageConsumerService {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    LogHandlerService    logHandlerService;
+	@Autowired
+	LogHandlerService logHandlerService;
 
-    @KafkaListener(topics = "${kafka.topic.createLog}")
-    @Override
-    public void handleLogCreateEvent(Log log) throws IOException {
-        LOGGER.debug("Log Received -> {}", log.toString());
-        LOGGER.debug("[handleLogCreateEvent]: handleLogCreateEvent is processing. Log: {}", log);
-        logHandlerService.logHandler(log);
-    }
+	@KafkaListener(topics = "${kafka.topic.readingLog}")
+	@Override
+	public void handleLog(Log log) throws IOException {
+		LOGGER.debug("Log Received -> {}", log.toString());
+		LOGGER.debug("[handleLog]: handleLog is processing. Log: {}", log);
+		logHandlerService.logHandler(log);
+	}
 
 }

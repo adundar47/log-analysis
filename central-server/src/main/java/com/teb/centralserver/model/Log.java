@@ -10,7 +10,7 @@ public class Log implements Serializable {
 
     private LogType           logLevel;
 
-    private CityName          cityName;
+    private CityNames          cityName;
 
     private String            logDetail;
 
@@ -18,7 +18,7 @@ public class Log implements Serializable {
         super();
     }
 
-    public Log(String timeStamp, LogType logLevel, CityName cityName, String logDetail) {
+    public Log(String timeStamp, LogType logLevel, CityNames cityName, String logDetail) {
         super();
         this.timeStamp = timeStamp;
         this.logLevel = logLevel;
@@ -42,11 +42,11 @@ public class Log implements Serializable {
         this.logLevel = logLevel;
     }
 
-    public CityName getCityName() {
+    public CityNames getCityName() {
         return cityName;
     }
 
-    public void setCityName(CityName cityName) {
+    public void setCityName(CityNames cityName) {
         this.cityName = cityName;
     }
 

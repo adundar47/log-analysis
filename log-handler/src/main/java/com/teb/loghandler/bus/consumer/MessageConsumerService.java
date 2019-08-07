@@ -6,6 +6,6 @@ import com.teb.loghandler.model.Log;
 
 public interface MessageConsumerService {
 
-    void handleLogCreateEvent(Log log) throws IOException;
+	void handleLog(Log log) throws IOException;
 
 }

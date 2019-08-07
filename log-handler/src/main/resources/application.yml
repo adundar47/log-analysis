@@ -5,12 +5,9 @@ spring:
     mongodb:
       host: 172.16.47.47
       port: 27017
-      database: log-handler
+      database: logs
   kafka:
       bootstrap-servers: 172.16.47.47:9092
-      producer:
-          key-serializer: org.apache.kafka.common.serialization.StringSerializer
-          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       consumer:
           group-id: log-handler
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

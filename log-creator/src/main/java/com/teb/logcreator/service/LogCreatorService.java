@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.teb.logcreator.bus.procuder.MessageProducerService;
-import com.teb.logcreator.model.CityName;
+import com.teb.logcreator.model.CityNames;
 import com.teb.logcreator.model.Log;
 import com.teb.logcreator.model.LogType;
 import com.teb.logcreator.utils.Utils;
@@ -25,7 +25,7 @@ public class LogCreatorService {
         Date now = new Date();
         String strDate = sdf.format(now);
 
-        CityName cityName = CityName.getRandomCityName();
+        CityNames cityName = CityNames.getRandomCityName();
         Log log = new Log(strDate, LogType.getRandomLogType(), cityName, Utils.getDetail(cityName.name()));
 
         messageProducerService.sendCreateLogEvent(log);

@@ -23,6 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.teb.loglistener.bus.producer.MessageProducerService;
+import com.teb.loglistener.exception.NotFoundException;
+import com.teb.loglistener.model.CityNames;
+import com.teb.loglistener.model.Log;
+import com.teb.loglistener.model.LogType;
 import com.teb.loglistener.utils.Utils;
 
 @Component
@@ -34,9 +38,9 @@ public class FileWatcher {
     static List<String>    lines = new LinkedList<>();
 
     @PostConstruct
-    public void test() throws IOException, InterruptedException {
+    public void test() throws IOException, InterruptedException, NotFoundException {
         WatchService watchService = FileSystems.getDefault().newWatchService();
-        Path path = Paths.get(Utils.WORK_DIR);
+        Path path = Paths.get(Utils.getWorkDir());
         path.register(watchService, ENTRY_CREATE, ENTRY_MODIFY);
 
         WatchKey key;
@@ -56,7 +60,7 @@ public class FileWatcher {
 
     }
 
-    private void fileToLines(String fileName) throws IOException {
+    private void fileToLines(String fileName) throws IOException, NotFoundException {
 
         int linesCount = lines.size();
         String filePath = Utils.getFilePath(fileName);
@@ -66,7 +70,7 @@ public class FileWatcher {
                     .limit(Utils.countLines(filePath) + 1 - linesCount).collect(Collectors.toList());
             readingLines.stream().forEach(l -> {
                 lines.add(l);
-//                messageProducerService.sendLogEvent(l);
+                messageProducerService.sendLog(new Log(l.split("=")[1].trim().split(",")[0], LogType.valueOf(l.split("=")[2].trim().split(",")[0]), CityNames.valueOf(l.split("=")[3].trim().split(",")[0]), l.split("=")[4].trim().split("]")[0]));
             });
         } catch (Exception e) {
             System.err.format("Exception: %s%n", e);

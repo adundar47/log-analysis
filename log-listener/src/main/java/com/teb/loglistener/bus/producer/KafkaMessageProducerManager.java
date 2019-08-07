@@ -26,21 +26,21 @@ public class KafkaMessageProducerManager implements MessageProducerService {
 
     @Async
     @Override
-    public void sendLogEvent(Log log) {
-        LOG.debug("[sendLogEvent] Log object is sending.. -> {}", log);
+    public void sendLog(Log log) {
+        LOG.debug("[sendLog] Log object is sending.. -> {}", log);
 
         ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(logTopic, log);
         future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
 
             @Override
             public void onSuccess(SendResult<String, Object> result) {
-                LOG.debug("[sendLogEvent] sent message='{}' with offset={}", log,
+                LOG.debug("[sendLog] sent message='{}' with offset={}", log,
                         result.getRecordMetadata().offset());
             }
 
             @Override
             public void onFailure(Throwable ex) {
-                LOG.error("[sendLogEvent] unable to send message='{}'", log, ex);
+                LOG.error("[sendLog] unable to send message='{}'", log, ex);
             }
 
         });
