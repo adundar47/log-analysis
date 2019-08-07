@@ -1,0 +1,26 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.6.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.teb'
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+		compile('org.springframework.boot:spring-boot-starter-web'){
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+	compile('org.springframework.kafka:spring-kafka')
+	compile("org.springframework.boot:spring-boot-starter-jetty")
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
