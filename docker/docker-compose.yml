@@ -1,0 +1,87 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    container_name: mongodb
+    volumes:
+    - /mongodb-data:/data/db
+    ports:
+    - "27017:27017"
+    restart: always
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.3
+
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    container_name: zookeeper
+    user: root
+    ports:
+      - '2181:2181'
+    restart: always
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - /zookeeper-data:/bitnami/zookeeper     
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.4
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    container_name: kafka
+    user: root
+    ports:
+      - '9092:9092'
+    restart: always
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.16.47.47:9092
+    volumes:
+      - /kafka-data:/bitnami/kafka  
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.5
+
+  central-server:
+    image: adundar/central-server:1.0.0
+    restart: always
+    ports:
+    - "8083:8083"
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.6
+
+  log-handler:
+    image: adundar/log-handler:1.0.0
+    restart: always
+    ports:
+    - "8084:8084"
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.7
+
+  log-listener:
+    image: adundar/log-listener:1.0.0
+    restart: always
+    ports:
+    - "8085:8085"
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.8
+
+  log-creator:
+    image: adundar/log-creator:1.0.0
+    restart: always
+    ports:
+    - "8082:8082"
+    networks:
+      mc-net:
+        ipv4_address: 172.35.45.9
+networks:
+  mc-net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.35.45.0/24

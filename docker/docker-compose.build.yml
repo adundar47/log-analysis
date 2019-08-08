@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  central-server:
+    build:
+      context: ../central-server
+      dockerfile: ./Dockerfile
+
+  log-handler:
+    build:
+      context: ../log-handler
+      dockerfile: ./Dockerfile
+
+  log-listener:
+    build:
+      context: ../log-listener
+      dockerfile: ./Dockerfile
+
+  log-creator:
+    build:
+      context: ../log-creator
+      dockerfile: ./Dockerfile
