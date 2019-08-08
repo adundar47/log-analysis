@@ -1,4 +1,4 @@
-FROM gradle:4.2.1-jdk8-alpine as builder
+FROM gradle:4.4.0-jdk8-alpine as builder
 COPY --chown=gradle:gradle . /app
 WORKDIR /app
 RUN gradle build
